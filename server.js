@@ -4,7 +4,10 @@ var express = require('express'),
     app     = express(),
     eps     = require('ejs'),
     morgan  = require('morgan');
-    
+
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
@@ -99,6 +102,13 @@ app.use(function(err, req, res, next){
 
 initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);
+});
+
+io.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
 });
 
 app.listen(port, ip);

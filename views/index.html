@@ -301,6 +301,15 @@ $ git push</pre>
           </section>
         </div>
 
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+         var socket = io.connect(' https://websocket-test-grdryn.b795.dev-preview-stg.openshiftapps.com');
+         socket.on('news', function (data) {
+             console.log(data);
+             socket.emit('my other event', { my: 'data' });
+         });
+        </script>
+
         <footer>
           <div class="logo"><a href="https://www.openshift.com/"></a></div>
         </footer>

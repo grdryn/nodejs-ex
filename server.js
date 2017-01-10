@@ -4,7 +4,7 @@ var express = require('express'),
     app     = express(),
     eps     = require('ejs'),
     morgan  = require('morgan');
-    
+
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
@@ -96,6 +96,8 @@ app.use(function(err, req, res, next){
   console.error(err.stack);
   res.status(500).send('Something bad happened!');
 });
+
+app.use('/.well-known', express.static('.well-known'));
 
 initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);
